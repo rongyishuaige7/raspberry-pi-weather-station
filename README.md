@@ -14,7 +14,7 @@
 ```text
 源码来源已确认
 公开候选不含部署凭据、数据库卷、IDE 状态或发布二进制
-本机公开门禁、Python 源码契约、.NET/Avalonia 桌面端构建与隔离 MySQL mock 联调已验证；[GitHub Actions 已在公开提交 `8eecf90294ac` 成功](https://github.com/rongyishuaige7/raspberry-pi-weather-station/actions/runs/29580328463)
+本机公开门禁、Python 源码契约、.NET/Avalonia 桌面端构建与隔离 MySQL mock 联调已验证；GitHub Actions 工作流已配置。默认分支的实时构建结果以仓库徽章和 [Hardware Lab 索引](https://github.com/rongyishuaige7/hardware-lab)中按当前 HEAD 核验的固定证据为准
 当前 Raspberry Pi、DHT22、BH1750、真实 MySQL 部署与 LAN 端到端链路尚未按当前公开 commit 重新真机复测
 ```
 
