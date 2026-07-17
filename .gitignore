@@ -1,0 +1,43 @@
+.venv/
+**/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.log
+*.sqlite*
+*.db
+*.sql.gz
+*.dump
+*.bak
+
+# Local credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+raspi/.env
+raspi/.env.*
+!raspi/.env.example
+compose.override.yml
+docker-compose.override.yml
+
+# .NET / IDE build state
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+*.suo
+.idea/
+**/.idea/
+.vs/
+
+# Published binaries and bundles do not belong in the source repository
+*.apk
+*.ipa
+*.exe
+*.dll
+*.pdb
+*.zip
+*.tar
+*.tar.gz

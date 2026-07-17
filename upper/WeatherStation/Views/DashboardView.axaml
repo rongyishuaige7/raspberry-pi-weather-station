@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:WeatherStation.ViewModels"
+             x:Class="WeatherStation.Views.DashboardView"
+             x:DataType="vm:DashboardViewModel">
+  <ScrollViewer>
+    <StackPanel Spacing="16" Margin="8">
+      <TextBlock Text="实时数据显示" FontSize="20" FontWeight="Bold" Margin="0,0,0,8" />
+
+      <UniformGrid Columns="3" Margin="0,0,0,8">
+        <!-- 温度卡片 -->
+        <Border Padding="20" CornerRadius="12" Background="{DynamicResource SystemRegionBrush}" BoxShadow="0 4 12 0 #10000000" Margin="0,0,16,0">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <TextBlock Text="🌡️" FontSize="20" Foreground="#FF5722"/>
+              <TextBlock Text="温度 (°C)" Opacity="0.7" FontSize="16" VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock FontSize="36" FontWeight="Bold" Margin="0,12,0,0" Text="{Binding Temperature, StringFormat={}{0:F1}}" Foreground="#FF5722" />
+          </StackPanel>
+        </Border>
+
+        <!-- 湿度卡片 -->
+        <Border Padding="20" CornerRadius="12" Background="{DynamicResource SystemRegionBrush}" BoxShadow="0 4 12 0 #10000000" Margin="0,0,16,0">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <TextBlock Text="💧" FontSize="20" Foreground="#2196F3"/>
+              <TextBlock Text="湿度 (%)" Opacity="0.7" FontSize="16" VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock FontSize="36" FontWeight="Bold" Margin="0,12,0,0" Text="{Binding Humidity, StringFormat={}{0:F1}}" Foreground="#2196F3"/>
+          </StackPanel>
+        </Border>
+
+        <!-- 光照卡片 -->
+        <Border Padding="20" CornerRadius="12" Background="{DynamicResource SystemRegionBrush}" BoxShadow="0 4 12 0 #10000000">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8">
+              <TextBlock Text="☀️" FontSize="20" Foreground="#FFC107"/>
+              <TextBlock Text="光照 (lux)" Opacity="0.7" FontSize="16" VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock FontSize="36" FontWeight="Bold" Margin="0,12,0,0" Text="{Binding LightIntensity, StringFormat={}{0:F1}}" Foreground="#FFC107"/>
+          </StackPanel>
+        </Border>
+      </UniformGrid>
+
+      <Border Padding="20" CornerRadius="12" Background="{DynamicResource SystemRegionBrush}" BoxShadow="0 2 8 0 #10000000">
+        <StackPanel Spacing="12">
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="🕒" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding LastUpdate, StringFormat=最近更新: {0}}" VerticalAlignment="Center" FontWeight="SemiBold"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock Text="📡" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding StatusText, StringFormat=通信状态: {0}}" VerticalAlignment="Center" Opacity="0.8"/>
+          </StackPanel>
+
+          <Border Background="#15FF3B30" CornerRadius="8" Padding="16"
+                  IsVisible="{Binding AlarmHint, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                  Margin="0,8,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <TextBlock Text="⚠️" FontSize="20" VerticalAlignment="Center"/>
+              <TextBlock Foreground="OrangeRed" FontWeight="Bold" FontSize="15" VerticalAlignment="Center"
+                         Text="{Binding AlarmHint, StringFormat=系统异常提示: {0}}" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

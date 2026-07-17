@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:WeatherStation.ViewModels"
+             x:Class="WeatherStation.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+  <ScrollViewer>
+    <StackPanel Margin="8" Spacing="16">
+
+      <!-- 参数配置卡片 -->
+      <Border Background="{DynamicResource SystemRegionBrush}" CornerRadius="12" Padding="28" BoxShadow="0 2 8 0 #10000000">
+        <StackPanel Spacing="24">
+          <StackPanel>
+            <TextBlock Text="环境监控参数配置" FontSize="22" FontWeight="Bold" />
+            <TextBlock Text="配置告警阈值与数据采集频率。点击保存后，参数会写入服务端数据库；采集器将在下一轮读取设置。保存成功不代表传感器或硬件状态已验证。"
+                       TextWrapping="Wrap" Opacity="0.6" Margin="0,6,0,0" FontSize="13"/>
+          </StackPanel>
+
+          <UniformGrid Columns="2" ColumnSpacing="32" RowSpacing="20">
+            <!-- 温度 -->
+            <StackPanel Spacing="8">
+              <TextBlock Text="温度上限 (°C)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding TempHigh}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+            <StackPanel Spacing="8">
+              <TextBlock Text="温度下限 (°C)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding TempLow}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+
+            <!-- 湿度 -->
+            <StackPanel Spacing="8">
+              <TextBlock Text="湿度上限 (%)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding HumidityHigh}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+            <StackPanel Spacing="8">
+              <TextBlock Text="湿度下限 (%)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding HumidityLow}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+
+            <!-- 光照 -->
+            <StackPanel Spacing="8">
+              <TextBlock Text="光照上限 (lux)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding LightHigh}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+            <StackPanel Spacing="8">
+              <TextBlock Text="光照下限 (lux)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding LightLow}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+
+            <!-- 采集频率 -->
+            <StackPanel Spacing="8">
+              <TextBlock Text="数据采集间隔 (秒)" FontWeight="SemiBold" />
+              <TextBox Text="{Binding CollectInterval}" FontSize="15" Padding="10,8" />
+            </StackPanel>
+          </UniformGrid>
+
+          <!-- 分隔线 -->
+          <Border Height="1" Background="#15000000" Margin="0,4" />
+
+          <!-- 操作按钮 -->
+          <StackPanel Orientation="Horizontal" Spacing="16">
+            <Button Content="⬇️ 从设备加载" Command="{Binding LoadCommand}" Padding="20,10" CornerRadius="6" FontSize="15"/>
+            <Button Content="💾 保存到设备" Command="{Binding SaveCommand}" Background="#0078D7" Foreground="White" Padding="20,10" CornerRadius="6" FontSize="15"/>
+          </StackPanel>
+
+          <TextBlock Text="{Binding Status}" FontSize="14" Foreground="#107C10" FontWeight="SemiBold" />
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

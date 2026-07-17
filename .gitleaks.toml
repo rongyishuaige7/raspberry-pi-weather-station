@@ -1,0 +1,8 @@
+# The sample configuration deliberately contains descriptive placeholders only.
+# Do not add real credentials to the allowlist.
+[allowlist]
+  description = "Public placeholders and code examples"
+  regexes = [
+    '''replace_with_[a-z0-9_]+''',
+    '''JWT_SECRET''',
+  ]

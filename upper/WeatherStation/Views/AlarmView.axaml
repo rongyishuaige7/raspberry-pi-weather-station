@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:WeatherStation.ViewModels"
+             x:Class="WeatherStation.Views.AlarmView"
+             x:DataType="vm:AlarmViewModel">
+  <Grid Margin="8">
+    <!-- 日志列表卡片 -->
+    <Border Background="{DynamicResource SystemRegionBrush}" CornerRadius="12" Padding="20" BoxShadow="0 2 8 0 #10000000">
+      <Grid RowDefinitions="Auto,*,Auto">
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="16" Margin="0,0,0,16" VerticalAlignment="Center">
+          <TextBlock Text="系统报警与日志记录" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" />
+          <Button Content="🔄 刷新记录" Command="{Binding LoadCommand}" Padding="16,6" CornerRadius="6" />
+        </StackPanel>
+
+        <!-- 数据表格 -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Rows}" AutoGenerateColumns="True" IsReadOnly="True"
+                  BorderBrush="#20000000" BorderThickness="1" CornerRadius="8" Background="Transparent" />
+
+        <TextBlock Grid.Row="2" Text="{Binding Status}" Margin="0,12,0,0" Opacity="0.7" FontSize="13" />
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

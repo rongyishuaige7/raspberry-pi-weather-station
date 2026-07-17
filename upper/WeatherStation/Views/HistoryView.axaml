@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:WeatherStation.ViewModels"
+             xmlns:sp="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
+             x:Class="WeatherStation.Views.HistoryView"
+             x:DataType="vm:HistoryViewModel">
+  <Grid RowDefinitions="Auto,*" Margin="8">
+
+    <!-- 查询控制卡片 -->
+    <Border Grid.Row="0" Background="{DynamicResource SystemRegionBrush}" CornerRadius="12" Padding="20,16" BoxShadow="0 2 8 0 #10000000" Margin="0,0,0,16">
+      <StackPanel Spacing="12">
+        <!-- 查询操作行 -->
+        <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+          <TextBlock VerticalAlignment="Center" Text="开始日期" FontWeight="SemiBold" />
+          <DatePicker SelectedDate="{Binding Start}" Width="170" />
+
+          <TextBlock VerticalAlignment="Center" Text="结束日期" FontWeight="SemiBold" />
+          <DatePicker SelectedDate="{Binding End}" Width="170" />
+
+          <TextBlock VerticalAlignment="Center" Text="(自动补全全天)" Opacity="0.5" FontSize="12" Margin="-8,0,0,0" />
+
+          <Button Content="查 询" Command="{Binding LoadCommand}" Background="#0078D7" Foreground="White" Padding="24,6" CornerRadius="6" />
+        </StackPanel>
+
+        <!-- 分割线 -->
+        <Border Height="1" Background="#15000000" />
+
+        <!-- 删除操作行 -->
+        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+          <TextBlock VerticalAlignment="Center" Text="删除操作：" FontWeight="SemiBold" Opacity="0.7" />
+
+          <Button Content="🗑 删除选中行" Command="{Binding DeleteSelectedCommand}"
+                  ToolTip.Tip="删除在表格中选中的那一条数据"
+                  IsEnabled="{Binding SelectedRow, Converter={x:Static ObjectConverters.IsNotNull}}"
+                  Padding="14,6" CornerRadius="6" />
+
+          <Button Content="📅 删除当前日期范围" Command="{Binding DeleteRangeCommand}"
+                  ToolTip.Tip="删除上方日期范围内的所有历史数据"
+                  Padding="14,6" CornerRadius="6" />
+
+          <Button Content="⚠ 清空所有历史数据" Command="{Binding DeleteAllCommand}"
+                  ToolTip.Tip="删除数据库中全部历史传感器数据，此操作不可撤销！"
+                  Background="#CC2020" Foreground="White"
+                  Padding="14,6" CornerRadius="6" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!-- 图表和表格卡片 -->
+    <Border Grid.Row="1" Background="{DynamicResource SystemRegionBrush}" CornerRadius="12" Padding="16" BoxShadow="0 2 8 0 #10000000">
+      <Grid RowDefinitions="250,8,*,Auto">
+        <!-- 图表区 -->
+        <Border Grid.Row="0" BorderBrush="#20000000" BorderThickness="1" CornerRadius="8" ClipToBounds="True">
+          <sp:AvaPlot x:Name="Plot" />
+        </Border>
+
+        <!-- 分割区域 -->
+        <GridSplitter Grid.Row="1" Background="Transparent" Height="8"/>
+
+        <!-- 表格区（绑定 SelectedItem 以支持选中删除） -->
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Rows}" SelectedItem="{Binding SelectedRow}"
+                  AutoGenerateColumns="True" IsReadOnly="True"
+                  BorderBrush="#20000000" BorderThickness="1" CornerRadius="8" Background="Transparent" />
+
+        <!-- 状态栏 -->
+        <TextBlock Grid.Row="3" Text="{Binding Status}" Margin="0,12,0,0" Opacity="0.7" FontSize="12" />
+      </Grid>
+    </Border>
+
+  </Grid>
+</UserControl>

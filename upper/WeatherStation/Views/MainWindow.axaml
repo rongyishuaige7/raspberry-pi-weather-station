@@ -1,0 +1,114 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WeatherStation.ViewModels"
+        xmlns:views="using:WeatherStation.Views"
+        x:Class="WeatherStation.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="小型气象站监控系统"
+        Width="1024" Height="680"
+        WindowStartupLocation="CenterScreen">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
+
+  <Panel>
+    <!-- 1. 登录面板 (当未登录时显示) -->
+    <Border IsVisible="{Binding !IsAuthenticated}">
+      <Border MaxWidth="420" VerticalAlignment="Center" HorizontalAlignment="Center"
+              Background="{DynamicResource SystemRegionBrush}"
+              CornerRadius="12"
+              Padding="32"
+              BoxShadow="0 8 16 0 #20000000">
+        <StackPanel Spacing="16">
+          <TextBlock Text="小型气象站系统" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,16"/>
+
+          <TextBlock Text="服务器地址" FontSize="14" FontWeight="SemiBold"/>
+          <Grid ColumnDefinitions="*,Auto">
+            <TextBox Text="{Binding ApiBaseUrl}" Watermark="http://树莓派IP:5000" />
+            <Button Grid.Column="1" Content="应用配置" Command="{Binding ApplyBaseUrlCommand}" Margin="8,0,0,0"/>
+          </Grid>
+
+          <TabControl Margin="0,16,0,0">
+            <TabItem Header="系统登录">
+              <StackPanel Spacing="16" Margin="0,20,0,0">
+                <TextBox Watermark="请输入用户名" Text="{Binding LoginUsername}" FontSize="15" Padding="10"/>
+                <TextBox Watermark="请输入密码" PasswordChar="●" Text="{Binding LoginPassword}" FontSize="15" Padding="10"/>
+                <Button Content="登 录" Command="{Binding LoginCommand}"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                        Background="#0078D7" Foreground="White" FontSize="16" Padding="10" Margin="0,8,0,0"/>
+              </StackPanel>
+            </TabItem>
+            <TabItem Header="新用户注册">
+              <StackPanel Spacing="16" Margin="0,20,0,0">
+                <TextBox Watermark="新用户名" Text="{Binding RegisterUsername}" FontSize="15" Padding="10"/>
+                <TextBox Watermark="新密码" PasswordChar="●" Text="{Binding RegisterPassword}" FontSize="15" Padding="10"/>
+                <Button Content="注 册" Command="{Binding RegisterCommand}"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                        FontSize="16" Padding="10" Margin="0,8,0,0"/>
+              </StackPanel>
+            </TabItem>
+          </TabControl>
+
+          <TextBlock Text="{Binding AuthStatus}" Foreground="OrangeRed" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+        </StackPanel>
+      </Border>
+    </Border>
+
+    <!-- 2. 主工作区 (当登录成功后显示) -->
+    <DockPanel Margin="16" IsVisible="{Binding IsAuthenticated}">
+
+      <!-- 顶部信息栏 -->
+      <Border DockPanel.Dock="Top" Background="{DynamicResource SystemRegionBrush}" CornerRadius="8" Padding="20,12" BoxShadow="0 2 6 0 #10000000" Margin="0,0,0,16">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Center">
+            <TextBlock Text="小型气象站监控中心" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding ApiBaseUrl, StringFormat=服务地址: {0}}" Foreground="SeaGreen" VerticalAlignment="Center" Opacity="0.8" Margin="8,0,0,0"/>
+          </StackPanel>
+
+          <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+            <TextBlock Text="{Binding CurrentUser, StringFormat=当前用户: {0}}" FontWeight="SemiBold" VerticalAlignment="Center"/>
+
+            <Button Content="修改密码">
+              <Button.Flyout>
+                <Flyout>
+                  <StackPanel Spacing="12" Width="220">
+                    <TextBlock Text="修改密码" FontWeight="Bold" FontSize="16"/>
+                    <TextBox Watermark="原密码" PasswordChar="●" Text="{Binding OldPassword}" />
+                    <TextBox Watermark="新密码" PasswordChar="●" Text="{Binding NewPassword}" />
+                    <Button Content="确认修改" Command="{Binding ChangePasswordCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+                    <TextBlock Text="{Binding AuthStatus}" Foreground="Red" FontSize="12" TextWrapping="Wrap"/>
+                  </StackPanel>
+                </Flyout>
+              </Button.Flyout>
+            </Button>
+
+            <Button Content="退出登录" Command="{Binding LogoutCommand}" />
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- 主要选项卡内容区 -->
+      <Border Background="{DynamicResource SystemRegionBrush}" CornerRadius="8" BoxShadow="0 2 6 0 #10000000" Padding="8">
+        <TabControl>
+          <TabItem Header="实时监控">
+            <views:DashboardView DataContext="{Binding Dashboard}" Margin="8"/>
+          </TabItem>
+          <TabItem Header="历史数据">
+            <views:HistoryView DataContext="{Binding History}" Margin="8"/>
+          </TabItem>
+          <TabItem Header="报警与日志">
+            <views:AlarmView DataContext="{Binding Alarms}" Margin="8"/>
+          </TabItem>
+          <TabItem Header="系统设置">
+            <views:SettingsView DataContext="{Binding Settings}" Margin="8"/>
+          </TabItem>
+          <TabItem Header="设备管理">
+            <views:DeviceView DataContext="{Binding Devices}" Margin="8"/>
+          </TabItem>
+        </TabControl>
+      </Border>
+
+    </DockPanel>
+  </Panel>
+</Window>

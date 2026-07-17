@@ -1,0 +1,16 @@
+# 本地/开发机联调：MySQL 8（与树莓派上部署方式一致）。
+# 先复制 raspi/.env.example 为 raspi/.env，并在当前 shell 中加载它：
+#   set -a && . raspi/.env && set +a
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in raspi/.env}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-weather_station}
+      MYSQL_USER: ${MYSQL_USER:?set MYSQL_USER in raspi/.env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?set MYSQL_PASSWORD in raspi/.env}
+    ports:
+      - "127.0.0.1:${MYSQL_HOST_PORT:-13306}:3306"
+    volumes:
+      - ./raspi/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
