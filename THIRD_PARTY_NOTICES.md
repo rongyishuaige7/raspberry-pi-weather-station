@@ -7,6 +7,7 @@
 | Flask / Werkzeug | Python REST API | https://palletsprojects.com/p/flask/ · BSD-3-Clause |
 | PyJWT | JWT 编解码 | https://github.com/jpadilla/pyjwt · MIT |
 | PyMySQL | MySQL 客户端 | https://github.com/PyMySQL/PyMySQL · MIT |
+| cryptography | PyMySQL 连接 MySQL 8 的 `caching_sha2_password` 认证支持 | https://github.com/pyca/cryptography · Apache-2.0 OR BSD-3-Clause |
 | smbus2 | I²C 访问 | https://github.com/kplindegaard/smbus2 · MIT |
 | Avalonia / Avalonia Desktop / Fluent | .NET 桌面界面 | https://avaloniaui.net/ · MIT |
 | CommunityToolkit.Mvvm | MVVM 辅助 | https://github.com/CommunityToolkit/dotnet · MIT |
