@@ -52,7 +52,7 @@ jobs:
           python-version: "3.12"
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@d4c94342e560b34958e8e6c1692324faeaa6cf3c # v5.0.0
+        uses: actions/setup-dotnet@d4c94342e560b34958eacfc5d055d21461ed1c5d # v5.0.0
         with:
           dotnet-version: "8.0.x"
 
