@@ -9,13 +9,13 @@
 > [!CAUTION]
 > 这是本科软硬件学习原型，不是气象仪器、环境安全系统、消防/报警系统、医疗设备、生产控制或远程运维平台。传感器读数、阈值、模拟数据、API 响应和桌面界面都不能代替经过标定的测量、告警送达、设备在线证明或安全结论。
 
-## Historical material evidence (2026-07-18 publication)
+## 历史素材证据（2026-07-18 发布）
 
-sanitized historical screenshot(s). See [MEDIA_EVIDENCE](docs/MEDIA_EVIDENCE.md) for dates, sanitization, omissions, and evidence limits.
+已脱敏的历史截图。日期、脱敏处理、未公开材料和证据边界见 [MEDIA_EVIDENCE](docs/MEDIA_EVIDENCE.md)。
 
-![Historical weather-station interface, 2026-04-07](assets/screenshots/historical-realtime-view.jpg)
+![历史气象站界面，2026-04-07](assets/screenshots/historical-realtime-view.jpg)
 
-Historical media/EDA do not prove that the current public commit was flashed or re-tested on hardware. **Current hardware re-test not run.**
+历史照片、截图或 EDA 不证明当前公开提交已烧录或完成真机复测。**当前未进行真机复测。**
 
 
 ## 当前证据
