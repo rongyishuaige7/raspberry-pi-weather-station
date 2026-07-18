@@ -4,7 +4,6 @@
 
 [![Validate](https://github.com/rongyishuaige7/raspberry-pi-weather-station/actions/workflows/validate.yml/badge.svg)](https://github.com/rongyishuaige7/raspberry-pi-weather-station/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/Code-MIT-f97316.svg)](LICENSE)
-[![Hardware retest](https://img.shields.io/badge/hardware-not%20retested-6e7781.svg)](docs/PROJECT_STATUS.md)
 
 > [!CAUTION]
 > 这是本科软硬件学习原型，不是气象仪器、环境安全系统、消防/报警系统、医疗设备、生产控制或远程运维平台。传感器读数、阈值、模拟数据、API 响应和桌面界面都不能代替经过标定的测量、告警送达、设备在线证明或安全结论。
