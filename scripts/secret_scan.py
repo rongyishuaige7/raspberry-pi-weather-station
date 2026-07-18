@@ -5,6 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 import re
 
+from PIL import Image
+
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN_PATH_PARTS = {".idea", ".venv", "bin", "obj", "__pycache__"}
 FORBIDDEN_NAMES = {".env", "grants.sql", "avalonia-logo.ico"}
@@ -34,6 +36,20 @@ def main() -> None:
             fail(f"forbidden local or binary file is tracked: {rel}")
         if path.stat().st_size > 2 * 1024 * 1024:
             fail(f"file exceeds 2 MiB publication limit: {rel}")
+        if rel.startswith("assets/") and path.suffix.lower() in {".jpg", ".jpeg", ".png"}:
+            try:
+                with Image.open(path) as image:
+                    image.verify()
+                with Image.open(path) as image:
+                    if len(image.getexif()) != 0:
+                        fail(f"public image contains EXIF metadata: {rel}")
+                    allowed_info = {"jfif", "jfif_version", "jfif_unit", "jfif_density", "progressive", "progression", "transparency"}
+                    if set(image.info) - allowed_info:
+                        fail(f"public image contains unexpected metadata: {rel}")
+            except OSError as exc:
+                fail(f"invalid public image {rel}: {exc}")
+            checked += 1
+            continue
         try:
             text = path.read_text(encoding="utf-8")
         except UnicodeDecodeError:

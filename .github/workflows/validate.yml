@@ -57,7 +57,7 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Install Python dependencies
-        run: python3 -m pip install --disable-pip-version-check -r raspi/requirements.txt
+        run: python3 -m pip install --disable-pip-version-check -r raspi/requirements.txt Pillow==12.1.1
 
       - name: Run publication and source-contract gates
         run: |
