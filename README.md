@@ -15,19 +15,6 @@
 
 ![气象站界面，2026-04-07](assets/screenshots/historical-realtime-view.jpg)
 
-
-
-## 当前证据
-
-```text
-源码来源已确认
-公开候选不含部署凭据、数据库卷、IDE 状态或发布二进制
-本机公开门禁、Python 源码契约、.NET/Avalonia 桌面端构建与隔离 MySQL mock 联调已验证；GitHub Actions 工作流已配置。默认分支的实时构建结果以仓库徽章和 [Hardware Lab 索引](https://github.com/rongyishuaige7/hardware-lab)中按当前 HEAD 核验的固定证据为准
-当前 Raspberry Pi、DHT22、BH1750、真实 MySQL 部署与 LAN 端到端链路尚未按当前公开 commit 重新真机复测
-```
-
-CI 中的 `USE_MOCK_SENSORS=1` 生成随机模拟数据，仅用于隔离开发验证；它不代表真实传感器、当前天气、设备在线或环境状态。完整范围见[项目状态](docs/PROJECT_STATUS.md)和[验证说明](docs/VERIFICATION.md)。
-
 ## 系统范围
 
 ```text
@@ -143,12 +130,6 @@ bash scripts/verify.sh
 | GET/POST/PUT/DELETE | `/api/devices` | Bearer JWT | 管理人工设备资料；状态字段不是在线证明 |
 
 详见[协议说明](docs/PROTOCOL.md)。HTTP、Bearer JWT 和本地 MySQL 只适合隔离可信教学网络；没有 TLS、设备身份、细粒度权限、速率限制、审计或生产级密钥管理。
-
-## 验证与真机复测
-
-当前 CI 验证的是公开文件边界、Python/API 契约、隔离 MySQL、mock 数据链路和 .NET/Avalonia 构建。它不验证真实 Raspberry Pi、DHT22、BH1750、I²C、GPIO、真实 LAN、长期运行、数据准确性或预警效果。
-
-要升级为当前真机已复测，必须按[真机复测清单](docs/VERIFICATION.md)记录日期、精确 Git commit、硬件型号、供电、接线、I²C 地址、每项通过/失败结果和脱敏运行证据。
 
 ## 开源许可与第三方组件
 

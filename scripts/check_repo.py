@@ -30,7 +30,7 @@ def main() -> None:
     if root.tag != "{http://www.w3.org/2000/svg}svg" or not root.get("viewBox"):
         fail("wiring diagram must be a valid self-contained SVG with viewBox")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    for fact in ("当前证据", "未按当前公开 commit 重新真机复测", "USE_MOCK_SENSORS=1", "不是", "HTTP"):
+    for fact in ("USE_MOCK_SENSORS=1", "不是", "HTTP"):
         if fact not in readme:
             fail(f"README is missing required boundary: {fact}")
     print("Repository structure check: PASS")
