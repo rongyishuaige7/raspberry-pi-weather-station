@@ -6,9 +6,9 @@
 [![License: MIT](https://img.shields.io/badge/Code-MIT-f97316.svg)](LICENSE)
 
 > [!CAUTION]
-> 这是本科软硬件学习原型，不是气象仪器、环境安全系统、消防/报警系统、医疗设备、生产控制或远程运维平台。传感器读数、阈值、模拟数据、API 响应和桌面界面都不能代替经过标定的测量、告警送达、设备在线证明或安全结论。
+> **使用提示：** 本项目用于嵌入式、局域网服务和桌面上位机学习；不是气象仪器、环境安全系统、消防报警系统、医疗设备或生产控制平台。
 
-## 项目照片与资料
+## 项目资料
 
 这里整理了项目照片、界面截图和相关资料；文件处理说明见 [MEDIA_EVIDENCE](docs/MEDIA_EVIDENCE.md)。
 
@@ -27,27 +27,21 @@ DHT22 / BH1750
 - **采集：** DHT22 温湿度、BH1750 光照；无硬件时可显式开启 mock。
 - **服务：** Python、Flask、PyMySQL、MySQL；API 提供登录、实时记录、历史记录、阈值、报警和设备资料。
 - **桌面端：** .NET 8、Avalonia、ScottPlot，适合学习本地上位机和 API 数据展示。
-- **状态语义：** 数据库中的 `devices.status` 是人工维护字段；API `/api/health` 只说明 API 进程响应；桌面“已收到最近一条记录”只说明查询到了数据库最近记录，均不是设备在线、采集器运行或传感器真实工作的证明。
+- **状态字段：** 数据库的 `devices.status` 由使用者维护；API `/api/health` 用于检查 API 服务可达性，桌面端显示最近一条数据库记录。
 
 ## 硬件与 BOM
 
-| 模块/信号 | Raspberry Pi 接口 | 当前源码边界 |
+| 模块/信号 | Raspberry Pi 接口 | 接线说明 |
 | :-- | :-- | :-- |
 | DHT22 DATA | GPIO4 / BCM 4 / 物理 Pin 7 | 3.3 V 逻辑；通常需 4.7 kΩ–10 kΩ 上拉，实物待确认 |
 | BH1750 SDA / SCL | GPIO2 / GPIO3 / 物理 Pin 3 / 5 | I²C1；常见地址 `0x23` / `0x5C`，实物待确认 |
 | DHT22 / BH1750 电源 | 3.3 V + GND | 模块电压、上拉、电平与公共地必须按实物复核 |
 
-查看完整的 [BOM](hardware/BOM.csv)、[源码推导接线边界图](hardware/wiring-diagram.svg) 和[硬件说明](HARDWARE.md)。该图不是原理图、PCB 或已完成真机复测的接线证明。不要把 5 V 信号直接接入 Raspberry Pi GPIO。
+查看完整的 [BOM](hardware/BOM.csv)、[接线图](hardware/wiring-diagram.svg)和[硬件说明](HARDWARE.md)。不要把 5 V 信号直接接入 Raspberry Pi GPIO。
 
-## 公开净化与来源
+## 项目资料说明
 
-- 权威源码来自桌面原工程；ZIP 与公开整理前的有效源码逐字节一致。
-- 原工程和 ZIP 保持只读，净化、文档和提交只在本公开候选中发生。
-- 公开仓不包含真实数据库、用户、密码、JWT、私网地址、部署配置、系统镜像、实物照片、视频、EDA、PCB、Gerber 或制造文件。
-- 已移除 IDE 状态和默认图标；`raspi/.env.example` 只提供不可用占位符，真实 `raspi/.env` 被 Git 忽略。
-
-详情见[来源与公开范围](docs/SOURCE_PROVENANCE.md)。
-
+`raspi/.env.example` 提供本地配置模板；真实 `raspi/.env` 被 Git 忽略。
 ## 本地构建与隔离联调
 
 ### 1. 准备配置
@@ -115,18 +109,14 @@ dotnet run --project WeatherStation/WeatherStation.csproj
 bash scripts/verify.sh
 ```
 
-该脚本运行公开边界检查、Python 语法/源码契约测试和 Avalonia Release 构建。它不启动 Docker、不写入真实数据库、不烧录树莓派，也不代替 GitHub Actions 的隔离 MySQL mock 联调。
+## API 与数据说明
 
-## API 与数据边界
-
-| 方法 | 路径 | 鉴权 | 真实语义 |
+| 方法 | 路径 | 鉴权 | 用途 |
 | :-- | :-- | :-- | :-- |
-| GET | `/api/health` | 否 | API 进程响应，不代表数据库、采集器或硬件健康 |
 | POST | `/api/auth/register` / `/api/auth/login` | 否 | 创建普通用户 / 换取 JWT |
-| GET | `/api/realtime` | Bearer JWT | 数据库最近一条记录，不代表实时采样 |
 | GET | `/api/history` | Bearer JWT | 查询已存记录 |
 | GET/POST | `/api/settings` | Bearer JWT | 读取/修改软件阈值与采样间隔 |
-| GET/POST/PUT/DELETE | `/api/devices` | Bearer JWT | 管理人工设备资料；状态字段不是在线证明 |
+| GET/POST/PUT/DELETE | `/api/devices` | Bearer JWT | 管理设备资料。 |
 
 详见[协议说明](docs/PROTOCOL.md)。HTTP、Bearer JWT 和本地 MySQL 只适合隔离可信教学网络；没有 TLS、设备身份、细粒度权限、速率限制、审计或生产级密钥管理。
 
