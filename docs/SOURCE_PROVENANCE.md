@@ -5,13 +5,13 @@
 本仓是从桌面原工程复制后整理出的公开候选：
 
 ```text
-/home/rongyi/桌面/基于树莓派的小型气象站的设计与实现/weather-station
+~/桌面/基于树莓派的小型气象站的设计与实现/weather-station
 ```
 
 历史只读封存包：
 
 ```text
-/home/rongyi/桌面/基于树莓派的小型气象站的设计与实现/weather-station.zip
+~/桌面/基于树莓派的小型气象站的设计与实现/weather-station.zip
 SHA-256: 01a3af22dbf62f9590d94709bc9c48387d54d07810358f8550d35a6d7ef3adb7
 ```
 
