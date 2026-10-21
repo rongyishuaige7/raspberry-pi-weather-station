@@ -11,8 +11,8 @@
 
 | 公开路径 | 拍摄日期 / 来源日期 | 脱敏处理 | 文件说明 |
 |:--|:--|:--|:--|
-| `assets/screenshots/historical-history-view.jpg` | 2026-04-07 | 已移除 EXIF/GPS 及其他图片元数据；从副本缩放处理；已遮盖可见的私人或本地信息 | 桌面历史记录界面；已遮盖私网 URL。 |
-| `assets/screenshots/historical-realtime-view.jpg` | 2026-04-07 | 已移除 EXIF/GPS 及其他图片元数据；从副本缩放处理 | 桌面实时界面。 |
+| `assets/screenshots/historical-history-view.jpg` | 2026-04-07 | 已移除 EXIF/GPS 及其他图片元数据；从副本缩放处理；已遮盖可见的私人或本地信息 | 桌面历史记录界面；已遮盖私网 URL 和登录用户名。 |
+| `assets/screenshots/historical-realtime-view.jpg` | 2026-04-07 | 已移除 EXIF/GPS 及其他图片元数据；从副本缩放处理；已遮盖可见的私人或本地信息 | 桌面实时界面；已遮盖私网 URL 和登录用户名。 |
 | `assets/screenshots/historical-service-log-redacted.jpg` | 2026-04-07 | 已移除 EXIF/GPS 及其他图片元数据；从副本缩放处理；已遮盖可见的私人或本地信息 | 服务日志；已遮盖终端用户名、路径和私网地址。 |
 
 ## 未公开材料
